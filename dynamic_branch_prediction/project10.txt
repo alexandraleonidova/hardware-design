@@ -1,0 +1,78 @@
+Project 10 - Dynamic Branch Prediction
+COMP300 @ USD (Spring 2017)
+
+1. Partner 1 Name: Eugene Prokopenko
+   Partner 2 Name: Alexandra Leonidova
+
+2. Partner 1 Email: evgueniprokopenko@sandiego.edu
+   Partner 2 Email: alexandraleonidova@sandiego.edu
+
+3. Project Overview: 
+
+In this project we  put the finishing touches on our pipelined MIPS processor. We designed and implemented a branch target buffer for dynamic branch prediction.
+
+4. Testing Summary:
+
+We tested the following scenarios:
+1) (Given in the project description): adding a test vector to btb and testing the next_state logic being updated in the right direction and being updated only when update_en is asserted.
+2) Updating with an outcome of 0 when in the 00 state.
+3) Updating with an outcome of 1 when in the 11 state.
+4) Alternating between two branches that map to the same entry in the BTB, testing that the state of one branch does not carry over to the branch that overwrites it.
+5) Setting update to 0 and giving values for updated_pc and updated_target. The updated should not be happening.
+6) Filling all 4 entries of btb and checking that the btb responds correctly for all 4 (does not evict any entry and does not update wrong entry).
+
+5. Test Vector Explanations:
+
+Scenario 1: (from project description)
+    Assume there is a branch at PC = 0x0000000 whose target is 0x00000008.
+    The first test vector applies the branch’s PC to the BTB. Because this is the first access of this branch, there will be no entry in the BTB for it, so the target output will be the same as the pc input (i.e. 0x0000000) and the pred output will be set to 0.
+    The first test vector sets update_en so the BTB should not be updated.
+    The second test vector assumes the instruction at PC = 0xFFFFFFF0 was fetched. Because it has not been added to the BTB, this should result in target being 0xFFFFFFF0 (same as the PC) and pred being 0.
+    To simulate adding the branch at PC = 0x00000000 to the BTB, the second test vector sets update_en to 1. It specifies that the update_pc will be 0x00000000, the update_target will be 0x00000008, and the update_outcome is 1 (i.e. the branch was taken). This should result in an entry for PC = 0x00000000 being added to the table with the specified target and state set to 10 (weakly taken).
+    The third test vector tests that the branch at 0x00000000 was successfully added to the BTB by applying that address to the pc input of the BTB. This should result in pred being 1 while target is 0x00000008. No update is made to the BTB during this test vector.
+    The forth test vector is the same as the previous one. Because there was no update to the BTB in the last vector, the outputs should remain the same as the last vector (and the state for that entry should remain at 10).
+    The fifth test vector does an update of the BTB, this time specifying that our 0x00000000 branch was not taken. This should result in the state for that entry going to 01 (i.e. weakly not taken).
+    The sixth test vector once again accesses the 0x0000000 branch. However, this time we should predict not taken so the pred output will be 0. Note that the target output is the same as before (0x00000008), as that is still the target (we just wouldn’t fetch that target this time, instead fetching PC+4).
+    End of Scenario 1. Scenario 2 builds on top of it, using btb that was at the end of Scenario 1.
+
+Scenario 2:
+	The seventh test vector does an update the BTB. The vector specified that our 0x00000000 branch was not taken. This should result in the state for that entry going to 00 (i.e. strongly not taken).
+	The eighth test vector once again accesses the 0x0000000 branch. This time we should predict not taken so the pred output will be 0. 
+	The ninth test vector updates the BTB. The vector specifies that our 0x00000000 branch was not taken, when our state is already 00. This should result in the state for that entry staying at 00 (i.e. strongly not taken).
+	The tenth test vector once again accesses the 0x0000000 branch. We should again predict not taken so the pred output will be 0. 
+	End of Scenario 2. Scenario 3 builds on top of it, using BTB that was at the end of Scenario 1.
+
+Scenario 3:
+	The eleventh test vector sets update_en to 1. It specifies that the update_pc will be 0x00000000, the update_target will be 0x00000008, and the update_outcome will be 1 (i.e. the branch was taken). This should result in state for PC = 0x00000000 going up to 01 (weakly not taken).
+	The twelveth test vector tests that the branch at 0x00000000 was successfully updated in the BTB. This should result in pred being 0 while target is 0x00000008. No update is made to the BTB during this test vector.
+	The thirteenth test vector sets update_en to 1. It specifies that  update_pc will be 0x00000000, the update_target will be 0x00000008, and the update_outcome will be 1 (i.e. the branch was taken). This should result in state for PC = 0x00000000 going up to 10 (weakly taken)
+	The fourteenth test vector tests that the branch at 0x00000000 was successfully updated in the BTB. This should result in pred being 1 and target being 0x00000008. No update is made to the BTB during this test vector.
+	The fifteenth test vector sets update_en to 1. It specifies that the update_pc will be 0x00000000, the update_target will be 0x00000008, and the update_outcome is 1 (i.e. the branch was taken). This should result in state for PC = 0x00000000 going up to 11 (strongly taken). fffffff0 is not in the buffer, so pred is 0.
+	The sixteenth test vector tests that the branch at 0x00000000 was successfully updated in the BTB. This should result in pred being 1 and target being 0x00000008. No update is made to the BTB during this test vector.
+	The seventeenth test vector sets update_en to 1. It specifies that the update_pc will be 0x00000000, the update_target will be 0x00000008, and the update_outcome is 1 (i.e. the branch was taken). This should result in state for PC = 0x00000000 staying at 11 (strongly taken). fffffff0 is not in the buffer, so pred is 0.
+	The eighteenth test vector tests that the branch at 0x00000000 was successfully updated (which means it was not modified) in the BTB. This should result in pred staying at 1 while target is 0x00000008. No update is made to the BTB during this test vector.
+
+Scenario 4:
+	The 19th test vector overwrites 00000000 => 00000008 with FFFF0000 => 00001111, indicating it was not taken (update_outcome = 0).
+	The 20th vector tests whether 00000000 is no longer a hit and that its target is 00000000 and pred is 0. No update is happenning.
+	The 21st test vector tests that FFFF0000 is a hit that results in target being 00001111 and pred being 0 (not taken). Pred needs to not be 1. If it is 1, then the state was carried from the previos instruction. No update is happening.
+	The 22nd vector: update FFFF0000 entry indicating it was taken (update_outcome = 1). It should set its state to 10 (weakly teken) .
+	The 23rd vector tests if FFFF0000 was updated and expects target to be 00001111 and pred = 1.
+	The 24th vector tests if 00000000 results in pred = 0, making sure it does not inherit state for FFFF0000.
+
+Scenario 5:
+	The 25th vector has update_en = 0, output = 1, pc, target update_target and update_ps = 11111111. Nothing should be updated, pred should be 0, and target should be 11111111.
+	The 26th vector makes sure 11111111 was not added to buffer.
+
+Scenario 6: 
+	The 27th vector updates the 0th entry (00) of a buffer to be 00000000 with target = FFFFFFFF; taken => state should be 10 (weakly taken).
+	The 28th vector updates the 1st entry (01) of a buffer to be 00000004 with target = 40000000; not taken => state should be 01 (weakly not taken).
+	The 29th vector updates the 2nd entry (10) of a buffer to be 00000008 with target = 80000000; taken => state should be 10 (weakly taken).
+	The 30th vector updates the 3rd entry (11) of a buffer to be 0000000C with target = C0000000; not taken => state should be 01 (weakly not taken).
+	The 31st vector checks whether 0th entry wasn't overwiten and still outputs target = FFFFFFFF and pred = 1.
+	The 32nd vector checks whether 1st entry wasn't overwiten and still outputs target = 40000000 and pred = 0.
+	The 33rd vector checks whether 2nd entry wasn't overwiten and still outputs target = 80000000 and pred = 1.
+	The 34th vector checks whether 3rd entry wasn't overwiten and still outputs target = C0000000 and pred = 0.
+	35th vector updated 1st entry to be weakly not taken.	
+	36th vector checks if 1st entry now outputs pred = 0.
+	Vectors 37, 38, 39 check that the other entries did not have their values overwritten

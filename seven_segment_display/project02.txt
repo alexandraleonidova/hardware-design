@@ -1,0 +1,24 @@
+Project 02 - 7-Segment Display
+COMP300 @ USD (Spring 2017)
+
+1. Name: Alexandra Leonidova 
+
+2. USD Email Address: alexandraleonidova@sandiego.edu
+
+3. Project Overview:
+
+The goal of project 2 was to design a milti-output combinational logic circuit, the seven-segment display. That involved constructing a truth table, constructing Karnaugh maps for optimising for number of logic gates, constructing boolean equations for each output based on the Karnaugh maps and converting those equations into scematics by using Quartus. The pin assigments was done by importing a pin asssignment file. Then, the performance of the decoder (display) was simulated in ModelSim. Once the simulation showed the desired performance, the design was downloaded to DEO-nano. Then, DEO-nano was connected by wires to the display on the breadboard to demonstrate its work.
+
+
+4. Design Methodology: 
+
+I chose to optimase for the number gates. In order to do this, I used information from the truth table to construct 7 Karnaugh maps, one for each output. Then, using the technique from Chapter 2.7 I used those Karnaugh maps to construct the boolean equation for each output with the smallest number of gates.
+5. Output Equations: 
+
+Sa = D2'D0'+ D3'D1 + D2D1 + D3'D2D0 + D3D2'D1'
+Sb = D3'D2' + D2'D0' + D3'D1'D0' + D3'D1D0 + D3D1'D0
+Sc = D3'D1' + D3'D0 + D1'D0 + D3'D2 + D3D2'
+Sd = D3D1' + D3'D2'D0' + D2'D1D0 + D2D1'D0 + D2D1D0'
+Se = D2'D0' + D1D0' + D3D1 + D3D2
+Sf = D3D2' + D3D1 + D3'D1'D0' + D3'D2D1' + D2D1D0'
+Sg = D3 + D2'D1 + D1D0' + D2D1'

@@ -1,0 +1,59 @@
+Project 07 - MIPS Single-Cycle Processor
+COMP300 @ USD (Spring 2017)
+
+1. Your Name:
+
+Alexandra Leonidova
+
+2. Your Email:
+
+alexandraleonidova@sandiego.edu
+
+3. Project Overview:
+
+For this project we modified a SystemVerilog implementation of a MIPS single-cycle processor to support two new instructions (ori and bne). Along the way we converted assembly code into machine code and tested that our processor correctly executes a simple program. 
+
+4. Assembler Examples:
+
+- Instruction: ori  $t0, $zero, 0x8000
+- HEX representation: 0x34088000
+- Binary representation: 0011 0100 0000 1000 1000 0000 0000 0000
+- Instruction format: I-type
+	- opcode = 001101 (opcode for ori instruction)
+	- rs = 00000 ($zero)
+	- rt = 01000 ($t0 is register 8)
+	- immediate = 1000000000000000 (0x8000 in binary)
+
+- Instruction: beq  $t0, $t1, there
+- HEX representation: 0x11090005 
+- Binary representation: 0001 0001 0000 1001 0000 0000 0000 0101
+- Instruction format: I-type
+	- opcode = 000100 (opcode for beq instruction)
+	- rs = 01000 ($t0 is register 8)
+	- rt = 01001 ($t1 is register 9)
+	- immediate = 0000000000000101
+			(‘there’ is 10th instruction in instructions memory
+			0 + 4 * 9 = 36 = 0x24 in hex (sign extend to 16 bits) = 0000000000000101)
+	
+	
+- Instruction: slt  $t3, $t1, $t0
+- HEX representation: 0x0128582A
+- Binary representation: 0000 0001 0010 1000 0101 1000 0010 1010
+- Instruction format: R-type
+- opcode = 000000 (opcode for all R-type instructions)
+    - rs = 01001 ($t1 is register 9)
+    - rt = 01000 ($t0 is register 8)
+    - rd = 01011 ($t3 is register 11)
+    - shamt = 00000 (unused for slt)
+    - funct = 101010 (slt)
+
+
+- Instruction: j there 
+- HEX representation: 0x8000024
+- Binary representation: 0000 1000 0000 0000 0000 0000 0010 0100
+- Instruction format: J-type
+	- opcode = 000010
+	- address = 00000000000000000000100100
+			(‘there’ is 10th instruction in instructions memory
+			0 + 4 * 9 = 36 = 0x24 in hex = 0010 0100, sign extend to 26 bits)
+

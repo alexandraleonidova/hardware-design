@@ -1,0 +1,14 @@
+Project 09 - MIPS Pipelined Processor (Part II)
+COMP300 @ USD (Spring 2017)
+
+1. Partner 1 Name: Alexandra Leonidova
+   Partner 2 Name: Eugene Prokopenko
+
+2. Partner 1 Email: alexandraleonidova@sandiego.edu
+   Partner 2 Email: evgueniprokopenko@sandiego.edu
+
+3. Project Overview:
+We improved upon the pipelined MIPS processor that we implemented in the last project. The major improvement came in the form of handling both data and branch hazards using hardware rather than software/nop. We used a combination of forwarding, stalls, and flushes to handle hazards. We used Unit Testing to test the project in small parts before running a big test that covered a complex scenarios.
+
+
+

@@ -1,0 +1,22 @@
+# DE0-Nano Assignments for COMP 300, Project #4
+
+# push buttons
+set_location_assignment PIN_J15 -to KEY[0]
+set_location_assignment PIN_E1 -to KEY[1]
+
+# LEDs
+set_location_assignment PIN_A15 -to LED[0]
+set_location_assignment PIN_A13 -to LED[1]
+set_location_assignment PIN_B13 -to LED[2]
+set_location_assignment PIN_A11 -to LED[3]
+
+set_location_assignment PIN_D1 -to LED[4]
+set_location_assignment PIN_F3 -to LED[5]
+set_location_assignment PIN_B1 -to LED[6]
+set_location_assignment PIN_L3 -to LED[7]
+
+# Switches
+set_location_assignment PIN_M1 -to SW[0]
+set_location_assignment PIN_T8 -to SW[1]
+set_location_assignment PIN_B9 -to SW[2]
+set_location_assignment PIN_M15 -to SW[3]

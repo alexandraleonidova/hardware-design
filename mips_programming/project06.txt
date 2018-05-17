@@ -1,0 +1,10 @@
+Project 06 - MIPS Programming
+COMP300 @ USD (Spring 2017)
+
+1. Partner A's Name: Alexandra Leonidova
+   Partner B's Name: Eugene Prokopenko
+
+2. Partner A's USD Email Address: alexandraleonidova@sandiego.edu
+   Partner B's USD Email Address: evgueniprokopenko@sandiego.edu
+
+

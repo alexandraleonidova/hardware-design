@@ -1,0 +1,17 @@
+Name: Alexandra Leonidova
+Email: alexandraleonidova@sandiego.edu
+
+Project overview:
+we designed a finite state machine in SystemVerilog to control the taillights of a 1965 Ford Thunderbird. There were three lights on each side that operate in sequence to indicate the direction of a turn. The sequence was designe to complete even when the button was released during it. If none of the buttons or both left and right button were pressed in initial states, no lights were turned on.
+
+Testbench Design:
+I tested all scenarios in my testbench. Pressing no buttons and boh buttons in the initial state, pressing one button and seeing that the cycle completes even if I release the button of press another one (as long as I do not reset). I checked whther the cycle will keep going as long as I keep pressing the button. I chechecked that reset turns off the light from any state.
+
+Resource usage:
+12 I/O 7 registers
+
+DEO Nano Testing:
+I imported pin-assigment file.
+Then, I imported wrapper file and set it to be a tob-level design.
+Then, I connected Deo-nano to the usb port and uploaded my design to it in Tools =>Programmer
+To demo, I first turned on reset (right switch), pressed the CLK (Key 0) and then turned off reset and tried various scenarios by swithing middle swithches on and on and pressing KEY 0 for each transition.

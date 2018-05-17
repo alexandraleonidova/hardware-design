@@ -1,0 +1,15 @@
+Project 01 - Full Adder
+COMP300 @ USD (Spring 2017)
+
+Name: 
+USD Email Address: alexandraleonidova@sandiego.edu
+
+Project Overview:
+
+The purpose of the project was to impliment a binary full adder. That involved several steps that were done using different software and hardware. A schematic design was done in Intel Quartus Prime IDE, then the design was simulated in ModelSim. Then, the correctness of the design was tested with DEO-Nano and implimented with physical hardware pieces (wires, logical gates etc.)
+
+Successfully uploaded to DE0-Nano?
+yes
+
+Successfully implemented using breadboard?
+yes

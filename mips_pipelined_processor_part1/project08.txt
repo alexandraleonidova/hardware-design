@@ -1,0 +1,11 @@
+Project 08 - MIPS Pipelined Processor (Part I)
+COMP300 @ USD (Spring 2017)
+
+1. Partner 1 Name: Eugene Prokopenko
+   Partner 2 Name: Alexandra Leonidova
+
+2. Partner 1 Email: eugeneprokopenko@sandiego.edu
+   Partner 2 Email: alexandraleonidova@sandiego.edu
+
+3. Project Overview:
+ We built a pipelined MIPS processor using SystemVerilog (without taking care of data or control hazards).We minimized the impact of control hazards by resolving the branch in the decode stage rather than in the execute stage.
