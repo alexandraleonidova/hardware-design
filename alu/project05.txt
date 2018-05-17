@@ -1,0 +1,19 @@
+Project 05 - ALU
+COMP300 @ USD (Spring 2017)
+
+1. Name: 
+Alexandra Leonidova
+2. USD Email Address: 
+alexandraleonidova@sandiego.edu
+3. Project Overview:
+we disigned an ALU for a future microprocessor with 7 operations
+- and
+- or
+- +
+- unused (y = carry_out = overflow = 0, zero = 1)
+- xor
+- nor
+- -
+- slt
+
+and then we wrote a self-ttesting testbench that used a vectorvile to verify the correctnes of implemented alu
