@@ -1,0 +1,32 @@
+Project 03 - Adventure Game
+COMP300 @ USD (Spring 2017)
+
+1. Name: Alexandra Leonidova
+
+2. USD Email Address: alexandraleonidova@sandiego.edu
+
+3. Project Overview:
+
+We designed 2 communicating FSMs that implemented a game. 
+
+4. Design Methodology:
+
+0) Create FSM diagram
+0.1) Create transition and output tables for each FSM
+0.2) Use tables to create boolean equations
+1) Enter the FSM into the Schematic Editor in Quartus
+2) Simulate the game using ModelSim
+
+5. Logic Equations: 
+
+For Room FSM:
+S0 = reset + S1w
+S1 = reset'(S0e + S2n)
+S2 = reset'(S1s + S3e)
+S3 = reset'S2w
+S4 = reset'S2e
+S5 = reset'S4v'
+S6 = reset'S4v
+
+For Sword FSM:
+S = reset'(S + sw)
