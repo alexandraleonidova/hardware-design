@@ -1,5 +1,5 @@
 # Hardware Design
-This repository contains my projects from Hardware Design cource
+This repository contains my Hardware Design projects
 Each Project has a folder, where you can find a projectXX.txt file that contains project description/details
 
 #### Software
